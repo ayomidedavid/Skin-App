@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Classification Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 32px 28px 24px 28px;
+        }
+        h1 {
+            text-align: center;
+            color: #3b3b5c;
+            margin-bottom: 28px;
+        }
+        .result, .prediction {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .result img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            margin-top: 10px;
+        }
+        .prediction {
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 18px 0 10px 0;
+            margin-top: 30px;
+            box-shadow: 0 1px 4px rgba(99,102,241,0.07);
+        }
+        .prediction h2 {
+            color: #6366f1;
+            margin-bottom: 10px;
+        }
+        .prediction p {
+            font-size: 1.1rem;
+            color: #3b3b5c;
+            margin: 8px 0;
+        }
+        .back-link {
+            display: block;
+            margin: 32px auto 0 auto;
+            width: fit-content;
+            background: #6366f1;
+            color: #fff;
+            padding: 12px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px rgba(99,102,241,0.08);
+            transition: background 0.2s;
+        }
+        .back-link:hover {
+            background: #4338ca;
+        }
+    </style>
+</head>
+<body>
+    <nav style="background:#6366f1; color:#fff; padding: 16px 0; text-align:center; font-size:1.2rem; font-weight:600; letter-spacing:1px;">
+        Welcome to Skin Classification System
+        {% if username %}
+            <span style="float:right; margin-right:32px;">
+                <span style="margin-right:18px;">Hello, {{ username }}</span>
+                <a href="{{ url_for('auth.logout') }}" style="background:#ef4444; color:#fff; padding:7px 18px; border-radius:6px; text-decoration:none; font-weight:500;">Logout</a>
+            </span>
+        {% endif %}
+    </nav>
+    <div class="container" style="margin-top:24px;">
+        <h1>Skin Classification Results</h1>
+        <div class="result">
+            <h2>Uploaded Image</h2>
+            <img src="{{ url_for('static', filename='uploads/' + image_filename) }}" alt="Uploaded Image">
+        </div>
+        <div class="prediction">
+            <h2>Prediction</h2>
+            <p>Predicted Class: {{ predicted_class }}</p>
+            <p>Probability: {{ probability }}</p>
+        </div>
+        <a class="back-link" href="{{ url_for('dashboard.dashboard') }}">Go back to Dashboard</a>
+    </div>
+</body>
+</html>
